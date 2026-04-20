@@ -31,3 +31,7 @@
     </div>
   </div>
 </nav>
+
+<main role="main" class="container" style="padding-top: 80px;">
+    <?= $this->renderSection('content') ?>
+</main>
