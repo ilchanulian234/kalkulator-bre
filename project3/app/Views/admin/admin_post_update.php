@@ -32,7 +32,11 @@
                         <a class="nav-link" href="<?= base_url('admin/setting') ?>">Setting</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('auth/logout') ?>">Logout</a>
+                        <?php if (logged_in()) : ?>
+                            <a class="nav-link" href="<?= base_url('logout') ?>">Logout</a>
+                        <?php else: ?>
+                            <a class="nav-link" href="<?= base_url('login') ?>">Login</a>
+                        <?php endif; ?>
                     </li>
                 </ul>
             </div>
