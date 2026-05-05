@@ -19,5 +19,6 @@ $routes->group('admin', ['filter' => 'login'], function ($routes) {  # update
 	$routes->add('post/new', 'PostAdmin::create');
 	$routes->add('post/(:segment)/edit', 'PostAdmin::edit/$1');
 	$routes->get('post/(:segment)/delete', 'PostAdmin::delete/$1');
+
 });
 

@@ -7,9 +7,11 @@
     <title>MyBlog</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css') ?>" />
+    <!-- Custom Admin CSS -->
+    <link rel="stylesheet" href="<?= base_url('css/custom.css') ?>" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top custom-navbar">
         <div class="container">
             <a class="navbar-brand" href="<?= base_url() ?>">MyBlog</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -29,7 +31,7 @@
                            class="btn btn-primary mr-3">New Post</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('admin/setting') ?>">Setting</a>
+                        <a class="nav-link" href="<?= base_url('/') ?>">Home</a>
                     </li>
                     <!-- update nav -->
                     <li class="nav-item">
@@ -44,7 +46,7 @@
         </div>
     </nav>
 
-    <div class="p-5 mb-4 bg-light rounded-3">
+    <div class="p-5 mb-4 bg-gradient bg-info text-white rounded-3">
         <div class="container py-5">
             <h1 class="display-5 fw-bold">Blog > Admin</h1>
         </div>
@@ -122,7 +124,7 @@
     </div>
 
     <div class="container py-4">
-        <footer class="pt-3 mt-4 text-muted border-top">
+        <footer class="pt-3 mt-4 custom-footer">
             <div class="container">
                 &copy; <?= Date('Y') ?>
             </div>
