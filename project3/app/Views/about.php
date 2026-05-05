@@ -45,7 +45,7 @@
                     <div class="rounded-circle bg-light mx-auto mb-4 d-flex align-items-center justify-content-center shadow-sm" style="width: 160px; height: 160px; border: 5px solid #0FFCBE;">
                         <span class="display-1">👤</span> 
                     </div>
-                    <h3 class="fw-bold text-primary-custom">Admin Blog</h3>
+                    <h3 class="fw-bold text-primary-custom">ILCHANUL YAASIN</h3>
                     <p class="text-muted fs-5">Web Developer & Enthusiast</p>
                     <hr class="mx-auto" style="width: 70%;">
                     <p class="small text-secondary mb-4">Berfokus pada pengembangan web menggunakan PHP dan framework modern.</p>
@@ -61,21 +61,21 @@
                 <div class="card card-about shadow-sm mb-4 accent-border">
                     <div class="card-body p-4">
                         <h5 class="fw-bold text-primary-custom">Siapa Aku</h5>
-                        <p class="text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam perferendis commodi tenetur quos ducimus repellat nulla, nam magni. Commodi iusto ad harum voluptas exercitationem facere eos earum laboriosam excepturi quas?</p>
+                        <p class="text-muted mb-0">Seorang pengelana di dunia biner yang percaya bahwa di balik setiap baris kode, ada detak jantung yang ingin bercerita. Aku adalah penenun logika yang mencoba menerjemahkan imajinasi menjadi realita di atas kanvas digital.</p>
                     </div>
                 </div>
 
                 <div class="card card-about shadow-sm mb-4 accent-border">
                     <div class="card-body p-4">
                         <h5 class="fw-bold text-primary-custom">Bisa Apa Aku</h5>
-                        <p class="text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam perferendis commodi tenetur quos ducimus repellat nulla, nam magni. Commodi iusto ad harum voluptas exercitationem facere eos earum laboriosam excepturi quas?</p>
+                        <p class="text-muted mb-0">Bukan sekadar mengetik sintaks, aku merakit jembatan antara kerumitan backend dengan keindahan frontend. Dengan PHP sebagai fondasi dan CSS sebagai warna, aku menghidupkan ruang kosong menjadi pengalaman yang dapat dirasakan oleh pengguna.</p>
                     </div>
                 </div>
 
                 <div class="card card-about shadow-sm mb-0 accent-border">
                     <div class="card-body p-4">
                         <h5 class="fw-bold text-primary-custom">Bagaimana Aku</h5>
-                        <p class="text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam perferendis commodi tenetur quos ducimus repellat nulla, nam magni. Commodi iusto ad harum voluptas exercitationem facere eos earum laboriosam excepturi quas?</p>
+                        <p class="text-muted mb-0">Aku bekerja dalam harmoni antara ketelitian dan rasa. Bagiku, koding bukan hanya soal fungsi yang berjalan, tapi soal bagaimana menciptakan keteraturan di tengah kekacauan, dan memastikan setiap klik membawa kenyamanan bagi siapa pun yang berkunjung.</p>
                     </div>
                 </div>
             </div>

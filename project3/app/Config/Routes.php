@@ -21,4 +21,3 @@ $routes->group('admin', ['filter' => 'login'], function ($routes) {  # update
 	$routes->get('post/(:segment)/delete', 'PostAdmin::delete/$1');
 
 });
-
