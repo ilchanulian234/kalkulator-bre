@@ -1,0 +1,96 @@
+:root {
+  --primary-blue: #106ebe;
+  --mint: #0ffcbe;
+  --gradient-primary: linear-gradient(
+    135deg,
+    #106ebe 0%,
+    #0ffcbe 50%,
+    #106ebe 100%
+  );
+  --gradient-hero: linear-gradient(135deg, #106ebe 0%, #0ffcbe 100%);
+  --card-shadow: 0 10px 30px rgba(16, 110, 190, 0.3);
+}
+
+body {
+  background: linear-gradient(to bottom, #f0f8ff 0%, #e6f7ff 100%);
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hero-gradient {
+  background: var(--gradient-hero);
+  color: white !important;
+  box-shadow: var(--card-shadow);
+  border: none;
+}
+
+.custom-navbar {
+  background: var(--gradient-primary) !important;
+  box-shadow: 0 4px 20px rgba(16, 110, 190, 0.4);
+}
+
+.navbar-brand,
+.nav-link {
+  color: white !important;
+}
+
+.navbar-brand:hover,
+.nav-link:hover {
+  color: #fff !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.custom-card {
+  border: none;
+  box-shadow: var(--card-shadow);
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.custom-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(16, 110, 190, 0.4);
+}
+
+.custom-card .card-body {
+  border-left: 5px solid var(--mint);
+  background: linear-gradient(to right, white 80%, #f0f8ff 100%);
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  border: none;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: var(--card-shadow);
+}
+
+.custom-footer {
+  background: rgba(16, 110, 190, 0.1);
+  color: var(--primary-blue) !important;
+  border-top: 3px solid var(--mint);
+}
+
+.text-custom-muted {
+  color: #666 !important;
+}
+
+main.container {
+  padding-top: 80px;
+}
+
+.card-title a {
+  color: var(--primary-blue);
+  text-decoration: none;
+}
+
+.card-title a:hover {
+  color: var(--mint);
+}
