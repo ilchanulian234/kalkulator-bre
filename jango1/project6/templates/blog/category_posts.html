@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}{{ category.name }} - GreenLife Blog{% endblock %}
+{% block content %}
+<div class="category-page">
+  <section class="category-hero" style="border-color: {{ category.color }}; background: linear-gradient(135deg, rgba(255,0,255,0.08), rgba(0,100,0,0.05));">
+    <div class="category-hero-content">
+      <div class="category-tag">
+        {% if category.icon %}
+        <span class="category-icon">{{ category.icon }}</span>
+        {% endif %}
+        <span class="category-name">{{ category.name }}</span>
+      </div>
+
+      <h1>Temukan Artikel {{ category.name }} yang Penuh Inspirasi</h1>
+      <p>
+        {% if category.description %}
+          {{ category.description }}
+        {% else %}
+          Jelajahi ide, praktik, dan cerita hijau yang membuat gaya hidup berkelanjutan lebih mudah dan menyenangkan.
+        {% endif %}
+      </p>
+
+      <div class="category-hero-meta">
+        <span>{{ page_obj.paginator.count }} artikel ditemukan</span>
+        <a href="/{{ category.slug }}/?category={{ category.slug }}" class="btn-primary">Explore Now</a>
+      </div>
+    </div>
+
+    <div class="category-hero-visual">
+      <div class="category-card-highlight">
+        <strong>Trending Now</strong>
+        <p>Temukan artikel pilihan yang sedang viral, inspirasi eco living, dan ide segar supaya kamu selalu selangkah lebih hijau.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="post-list">
+    {% if posts %}
+    <div class="post-grid">
+      {% for post in posts %}
+      <article class="post-card">
+        <a href="{{ post.get_absolute_url }}">
+          <h2>{{ post.title }}</h2>
+        </a>
+        <p class="post-meta">
+          {{ post.created_at|date:"M d, Y" }}
+        </p>
+        <p class="post-excerpt">
+          {{ post.excerpt|default:post.content|truncatewords:22 }}
+        </p>
+        <a class="read-more" href="{{ post.get_absolute_url }}">Read more</a>
+      </article>
+      {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+    <div class="pagination">
+      {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}" class="page-link">Previous</a>
+      {% endif %}
+      <span class="current-page">Page {{ page_obj.number }} of {{ paginator.num_pages }}</span>
+      {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="page-link">Next</a>
+      {% endif %}
+    </div>
+    {% endif %}
+    {% else %}
+    <div class="empty-state">
+      <h2>Belum ada artikel di kategori ini.</h2>
+      <p>Silakan kembali nanti untuk inspirasi hijau terbaru dari GreenLife.</p>
+    </div>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

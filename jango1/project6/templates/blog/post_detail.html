@@ -1,0 +1,407 @@
+{% extends 'base.html' %}
+{% block title %}{{ post.title }} - GreenLife Blog{% endblock %}
+{% block content %}
+<div class="main-content">
+  <article class="article-content">
+    <!-- Article Header -->
+    <div class="article-card">
+      <span class="article-category">{{ post.get_category_display }}</span>
+
+      <h1 class="article-title article-title-highlight">{{ post.title }}</h1>
+
+      <div class="article-meta">
+        <img
+          src="{{ post.author.profile.avatar.url }}"
+          alt="{{ post.author.username }}"
+          class="author-avatar"
+        />
+        <div>
+          <p>
+            {{ post.created_at|date:"M d, Y" }} • {{ post.get_reading_time }}
+            min read
+          </p>
+        </div>
+        <span class="article-likes">❤️ {{ post.likes }} likes</span>
+      </div>
+
+      {% if post.excerpt %}
+      <div class="article-description">{{ rendered_excerpt }}</div>
+      {% endif %}
+
+      <!-- Featured Image -->
+      {% if post.featured_image %}
+      <img
+        src="{{ post.featured_image.url }}"
+        alt="{{ post.title }}"
+        class="article-image"
+      />
+      {% endif %}
+
+      <!-- Article Actions -->
+      <div class="article-actions">
+        <button class="btn-listen" data-post-id="{{ post.id }}">
+          🎧 Listen to Article
+        </button>
+        <button class="btn-save" data-post-id="{{ post.id }}" id="bookmark-btn">
+          📌 Save for Later
+        </button>
+        <div class="share-buttons">
+          <button class="share-btn twitter" title="Share on Twitter">𝕏</button>
+          <button class="share-btn linkedin" title="Share on LinkedIn">
+            in
+          </button>
+          <button class="share-btn copy" title="Copy Link">🔗</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Summary Box -->
+    <div class="ai-summary">
+      <div class="ai-summary-header">
+        <span class="ai-summary-icon">✨</span>
+        <span>AI Summary</span>
+      </div>
+
+      {% if post.ai_summary %}
+      <div class="ai-summary-content">{{ post.ai_summary }}</div>
+      {% else %}
+      <div class="ai-summary-content">
+        Ringkasan AI belum tersedia. Klik tombol di bawah untuk generate
+        ringkasan otomatis.
+      </div>
+      {% endif %} {% if user.is_authenticated and user == post.author %}
+      <button class="btn-generate-summary" data-post-id="{{ post.id }}">
+        ✨ Generate Full Summary
+      </button>
+      {% endif %}
+    </div>
+
+    <!-- Article Content -->
+    <div class="article-card">
+      <div class="article-excerpt">{{ rendered_content }}</div>
+
+      <!-- Engagement Section -->
+      <div class="engagement">
+        <div class="engagement-item" id="like-btn" data-post-id="{{ post.id }}">
+          <span class="engagement-icon"
+            >{% if user_liked %}❤️{% else %}🤍{% endif %}</span
+          >
+          <span class="engagement-count">{{ post.likes }}</span>
+        </div>
+        <div class="engagement-item">
+          <span class="engagement-icon">💬</span>
+          <span class="engagement-count">{{ post.comments.count }}</span>
+        </div>
+        <div class="engagement-item">
+          <span class="engagement-icon">👁️</span>
+          <span class="engagement-count">{{ post.views }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Poll Section -->
+    {% if poll %}
+    <div class="poll-box">
+      <div class="poll-header">
+        <span>📊 POLL</span>
+      </div>
+
+      <h3 class="poll-title">{{ poll.question }}</h3>
+
+      <form
+        id="poll-form"
+        method="post"
+        action="/blog/poll/{{ poll.id }}/vote/"
+      >
+        {% csrf_token %} {% for option in poll.options.all %}
+        <div class="poll-option">
+          <label>
+            <input
+              type="radio"
+              name="option_id"
+              value="{{ option.id }}"
+              required
+            />
+            <span>{{ option.text }}</span>
+          </label>
+
+          <div class="poll-result-bar">
+            <div
+              class="poll-result-fill"
+              style="width: {% widthratio option.votes poll.get_total_votes 100 %}%"
+            ></div>
+          </div>
+
+          <div class="poll-percentage">
+            {% widthratio option.votes poll.get_total_votes 100 %}%
+          </div>
+        </div>
+        {% endfor %}
+
+        <div class="poll-actions">
+          <button type="submit" class="btn-vote">Vote Now</button>
+          <button type="button" class="btn-results">View Results</button>
+        </div>
+      </form>
+    </div>
+    {% endif %}
+
+    <!-- Comments Section -->
+    <div class="article-card" style="margin-top: 40px">
+      <h3 style="margin-bottom: 20px">Comments ({{ post.comments.count }})</h3>
+
+      <!-- Comment Form -->
+      {% if user.is_authenticated %}
+      <form
+        method="post"
+        action="/blog/post/{{ post.id }}/comment/"
+        style="margin-bottom: 30px"
+      >
+        {% csrf_token %}
+        <textarea
+          name="content"
+          placeholder="Share your thoughts..."
+          required
+          style="
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 100px;
+          "
+        ></textarea>
+        <button type="submit" class="btn-subscribe" style="margin-top: 10px">
+          Post Comment
+        </button>
+      </form>
+      {% else %}
+      <p style="margin-bottom: 20px">
+        <a href="/login/">Sign in</a> to leave a comment.
+      </p>
+      {% endif %}
+
+      <!-- Comments List -->
+      {% for comment in comments %}
+      <div
+        style="
+          padding: 15px;
+          border-bottom: 1px solid #eee;
+          margin-bottom: 15px;
+        "
+      >
+        <div style="display: flex; align-items: center; margin-bottom: 10px">
+          <img
+            src="{{ comment.author.profile.avatar.url }}"
+            alt="{{ comment.author.username }}"
+            style="
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              margin-right: 10px;
+            "
+          />
+          <div>
+            <strong
+              >{{ comment.author.get_full_name|default:comment.author.username
+              }}</strong
+            >
+            <p style="font-size: 12px; color: #999">
+              {{ comment.created_at|date:"M d, Y H:i" }}
+            </p>
+          </div>
+        </div>
+        <p>{{ comment.content }}</p>
+      </div>
+      {% empty %}
+      <p style="color: #999">No comments yet. Be the first to comment!</p>
+      {% endfor %}
+    </div>
+  </article>
+
+  <!-- Sidebar -->
+  <aside class="sidebar-content">
+    <!-- Related Posts Widget -->
+    <div class="sidebar-widget">
+      <div class="widget-title" style="color: #006400">
+        Related Articles
+        <a
+          href="/?category={{ post.category }}"
+          class="widget-link"
+          style="color: #006400"
+          >View All →</a
+        >
+      </div>
+
+      {% for related_post in related_posts %}
+      <div class="post-item">
+        {% if related_post.featured_image %}
+        <img
+          src="{{ related_post.featured_image.url }}"
+          alt="{{ related_post.title }}"
+          class="post-thumbnail"
+        />
+        {% else %}
+        <div
+          class="post-thumbnail"
+          style="background: linear-gradient(135deg, #3cb371, #006400)"
+        ></div>
+        {% endif %}
+
+        <div class="post-info">
+          <h4>
+            <a
+              href="{{ related_post.get_absolute_url }}"
+              style="text-decoration: none; color: inherit"
+              >{{ related_post.title }}</a
+            >
+          </h4>
+          <p>{{ related_post.created_at|date:"M d, Y" }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Newsletter Widget -->
+    <div class="sidebar-widget subscribe-widget">
+      <div class="subscribe-glow"></div>
+      <div class="subscribe-badge">
+        <i class="fas fa-envelope"></i>
+        Newsletter
+      </div>
+      <div class="subscribe-icon-wrap">
+        <i class="fas fa-envelope-open-text"></i>
+      </div>
+      <h3 class="subscribe-title" style="color: #006400">📧 Subscribe</h3>
+      <p class="subscribe-copy" style="color: #006400">
+        Dapatkan artikel terbaru, insight hijau, dan inspirasi harian langsung
+        ke inbox Anda.
+      </p>
+      <form class="newsletter-form subscribe-form">
+        <input type="email" placeholder="Alamat email Anda" required />
+        <button type="submit" class="btn-subscribe subscribe-btn">
+          <i class="fas fa-paper-plane"></i>
+          Subscribe
+        </button>
+      </form>
+      <p class="subscribe-note" style="color: #006400">
+        Tanpa spam. Batal berlangganan kapan saja.
+      </p>
+    </div>
+
+    <!-- Popular Posts Widget -->
+    <div class="sidebar-widget">
+      <div class="widget-title" style="color: #006400">Trending Now</div>
+
+      {% for trending_post in trending_posts %}
+      <div class="post-item">
+        {% if trending_post.featured_image %}
+        <img
+          src="{{ trending_post.featured_image.url }}"
+          alt="{{ trending_post.title }}"
+          class="post-thumbnail"
+        />
+        {% else %}
+        <div
+          class="post-thumbnail"
+          style="background: linear-gradient(135deg, #ff00ff, #c71585)"
+        ></div>
+        {% endif %}
+
+        <div class="post-info">
+          <h4>
+            <a
+              href="{{ trending_post.get_absolute_url }}"
+              style="text-decoration: none; color: inherit"
+              >{{ trending_post.title }}</a
+            >
+          </h4>
+          <p>
+            {{ trending_post.created_at|date:"M d, Y" }} • {{
+            trending_post.views }} views
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </aside>
+</div>
+
+<!-- JavaScript for Post Detail -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Like button
+    const likeBtn = document.getElementById("like-btn");
+    if (likeBtn) {
+      likeBtn.addEventListener("click", function () {
+        const postId = this.dataset.postId;
+        fetch(`/blog/post/${postId}/like/`, {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              likeBtn.querySelector(".engagement-icon").textContent = data.liked
+                ? "❤️"
+                : "🤍";
+              likeBtn.querySelector(".engagement-count").textContent =
+                data.like_count;
+            }
+          });
+      });
+    }
+
+    // Bookmark button
+    const bookmarkBtn = document.getElementById("bookmark-btn");
+    if (bookmarkBtn) {
+      bookmarkBtn.addEventListener("click", function () {
+        const postId = this.dataset.postId;
+        fetch(`/blog/post/${postId}/bookmark/`, {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              bookmarkBtn.textContent = data.bookmarked
+                ? "✅ Saved"
+                : "📌 Save for Later";
+            }
+          });
+      });
+    }
+
+    // Poll form submission
+    const pollForm = document.getElementById("poll-form");
+    if (pollForm) {
+      pollForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        const pollId = "{{ poll.id }}";
+
+        fetch(`/blog/poll/${pollId}/vote/`, {
+          method: "POST",
+          body: formData,
+          headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              alert("Suara Anda telah dicatat!");
+              location.reload();
+            }
+          });
+      });
+    }
+  });
+</script>
+{% endblock %}

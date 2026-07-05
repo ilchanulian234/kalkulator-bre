@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Contact - GreenLife Blog{% endblock %}
+{% block content %}
+<div class="contact-page">
+  <section class="contact-hero">
+    <div class="contact-hero-content">
+      <span class="category-tag">Contact</span>
+      <h1>Hubungi GreenLife</h1>
+      <p>Butuh bantuan, ide kolaborasi, atau hanya ingin menyapa? Kirim pesan, dan kami akan membalas secepat mungkin.</p>
+    </div>
+    <div class="contact-hero-card">
+      <h2>Want to connect?</h2>
+      <p>Tim GreenLife siap menerima pesanmu tentang tips hijau, guest post, dan pertanyaan sustainability.</p>
+    </div>
+  </section>
+
+  <section class="contact-form-section">
+    <div class="contact-form-card">
+      {% if success %}
+      <div class="form-success">Pesan berhasil terkirim. Terima kasih sudah menghubungi kami!</div>
+      {% endif %}
+
+      <form method="post" novalidate>
+        {% csrf_token %}
+        <div class="form-grid">
+          <div class="form-group">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+            {% if form.name.errors %}
+              <div class="form-error">{{ form.name.errors.0 }}</div>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {% if form.email.errors %}
+              <div class="form-error">{{ form.email.errors.0 }}</div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="form-group">
+          {{ form.subject.label_tag }}
+          {{ form.subject }}
+          {% if form.subject.errors %}
+            <div class="form-error">{{ form.subject.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ form.message.label_tag }}
+          {{ form.message }}
+          {% if form.message.errors %}
+            <div class="form-error">{{ form.message.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <button type="submit" class="btn-primary">Kirim Pesan</button>
+      </form>
+    </div>
+  </section>
+</div>
+{% endblock %}

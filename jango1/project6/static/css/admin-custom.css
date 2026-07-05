@@ -1,0 +1,128 @@
+/* Custom Django Admin theme: White / Green / Magenta */
+:root{
+  --admin-white:#ffffff;
+  --admin-green:#006400;
+  --admin-light-green:#3cb371;
+  --admin-magenta:#ff00ff;
+  --admin-dark-magenta:#c71585;
+  --admin-border:#e6e6e6;
+}
+
+html,body {
+  background: var(--admin-white) !important;
+  color: #111 !important;
+}
+
+#header, .header {
+  background: linear-gradient(90deg, var(--admin-light-green), var(--admin-green)) !important;
+  border-bottom: 2px solid rgba(0,0,0,0.06) !important;
+}
+
+#header h1 a, #header h1 {
+  color: #fff !important;
+}
+
+#user-tools a, #user-tools a:visited {
+  color: rgba(255,255,255,0.95) !important;
+}
+
+a, a:visited { color: var(--admin-magenta) !important; }
+
+.module h2, .app-list h3, #content h1, .breadcrumbs { color: var(--admin-green) !important; }
+
+.app-list .module {
+  border: 1px solid var(--admin-border) !important;
+  background: linear-gradient(180deg, rgba(255,0,255,0.03), rgba(0,100,0,0.02)) !important;
+}
+
+/* Sidebar app labels */
+.app-list li a,
+.app-list li a:visited,
+.app-list li a span,
+.app-list li .model-icon {
+  color: var(--admin-green) !important;
+}
+
+.app-list li a:hover,
+.app-list li a:focus,
+.app-list li.selected a,
+.app-list li a:hover span,
+.app-list li.selected a span {
+  color: var(--admin-dark-magenta) !important;
+  text-decoration: none !important;
+}
+
+.app-list li {
+  border-left: 3px solid transparent;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.app-list li:hover,
+.app-list li.selected {
+  background: rgba(60, 179, 113, 0.08) !important;
+  border-left-color: var(--admin-light-green) !important;
+}
+
+.app-list li.selected a {
+  color: var(--admin-dark-magenta) !important;
+  font-weight: 700;
+}
+
+/* Sidebar app module headings */
+.app-list h3,
+.app-list h3 a {
+  color: var(--admin-magenta) !important;
+}
+
+/* Override Django admin default blue sidebar links */
+.app-list li a,
+.app-list li.selected a,
+.app-list h3,
+.model-auth .module-caption,
+.model-blog .module-caption {
+  color: inherit !important;
+}
+
+.app-list li a[href*="/auth/"],
+.app-list li a[href*="/blog/"] {
+  color: var(--admin-green) !important;
+}
+
+.submit-row input, .submit-row .button, .button {
+  background: linear-gradient(90deg, var(--admin-magenta), var(--admin-dark-magenta)) !important;
+  color: #fff !important;
+  border: none !important;
+  box-shadow: 0 6px 16px rgba(199,21,133,0.18) !important;
+}
+
+.button:hover, .submit-row .button:hover {
+  transform: translateY(-2px);
+}
+
+fieldset.module {
+  border: 1px solid var(--admin-border) !important;
+  background: #fff !important;
+}
+
+.change-form .form-row label, .inline-group h2 {
+  color: var(--admin-green) !important;
+}
+
+.model-admin .changelist-results th, .changelist-results th {
+  background: linear-gradient(90deg, rgba(60,179,113,0.08), rgba(0,100,0,0.06)) !important;
+  color: var(--admin-green) !important;
+}
+
+/* make sure the nav sidebar uses subtle borders */
+#content-main, #container {
+  background: var(--admin-white) !important;
+}
+
+/* login page tweaks */
+#content-main .module p, #content-main .module h1 { color: var(--admin-green) !important; }
+
+/* forms */
+input[type="text"], input[type="password"], textarea, select {
+  border: 1px solid var(--admin-border) !important;
+  box-shadow: none !important;
+}

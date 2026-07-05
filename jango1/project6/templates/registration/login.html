@@ -1,0 +1,51 @@
+{% extends 'base.html' %} {% block title %}Login - GreenLife Blog{% endblock %}
+{% block content %}
+<div class="post-list-page">
+  <section class="page-header">
+    <h1>Login</h1>
+    <p>Masuk untuk mengakses fitur komentar, bookmark, dan ringkasan AI.</p>
+  </section>
+
+  <div
+    class="article-card"
+    style="max-width: 500px; margin: 0 auto; padding: 2rem"
+  >
+    <form method="post" action="">
+      {% csrf_token %}
+      <div style="margin-bottom: 1rem">
+        <label for="id_username" style="color: #006400; font-weight: 600;">Username</label>
+        <input
+          id="id_username"
+          type="text"
+          name="username"
+          required
+          style="
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+          "
+        />
+      </div>
+      <div style="margin-bottom: 1rem">
+        <label for="id_password" style="color: #006400; font-weight: 600;">Password</label>
+        <input
+          id="id_password"
+          type="password"
+          name="password"
+          required
+          style="
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+          "
+        />
+      </div>
+      <button type="submit" class="btn-subscribe" style="width: 100%">
+        Login
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}
